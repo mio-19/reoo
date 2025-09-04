@@ -37,8 +37,8 @@
         subPackages = [ "." ];
 
         # Let buildGoModule vendor deps from go.mod.
-        # First run with lib.fakeSha256; copy the suggested hash into here and rebuild.
-        vendorHash = final.lib.fakeSha256;
+        # Using fake hash to get the real one
+    vendorHash = "sha256-/MeaomhmQL3YNrR4a0ihGwZAo5Zk8snpJvCSXY93aM8=";
 
         # GUI needs CGO; parallelize runtime/test; mute GLib deprecation warnings
         env = {
@@ -70,8 +70,8 @@
           substituteInPlace gui/gui.go \
             --replace-fail 'IconPath    = "/opt/wireguird/Icon/"' \
                            'IconPath    = "/run/current-system/sw/share/wireguird/Icon/"'
-          # Clean any stray vendor dirs (project currently has none).
-          find . -type d -name vendor -prune -exec rm -rf {} + || true
+          # Remove any existing vendor directory to avoid inconsistency
+          rm -rf vendor || true
         '';
 
         ldflags = [ "-s" "-w" ];

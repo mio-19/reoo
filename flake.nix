@@ -1,7 +1,7 @@
 {
   description = "Wireguird (WireGuard GUI) packaged as a flake";
 
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/unstable";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
   outputs = { self, nixpkgs }:
   let
@@ -145,7 +145,7 @@
           mainProgram = "wireguird";
         };
       };
-    });
+  };
   in
   {
     overlays.default = wireguirdOverlay;
@@ -170,5 +170,5 @@
         default = self.apps.${pkgs.system}.wireguird;
       }
     );
-  }
+  };
 }
